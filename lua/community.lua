@@ -11,6 +11,30 @@ return {
     "Exafunction/codeium.vim",
     lazy = false,
   },
+
+  {
+    "Pocco81/auto-save.nvim",
+    config = function()
+      require("auto-save").setup {
+        enabled = true, -- Автосохранение включено
+        execution_message = {
+          message = function() return "" end, -- Сообщения можно отключить
+        },
+        events = { "InsertLeave", "TextChanged" }, -- События для срабатывания автосохранения
+        debounce_delay = 135, -- Задержка перед сохранением (в миллисекундах)
+        conditions = {
+          exists = true, -- Проверяет, существует ли файл
+          filename_is_not = {}, -- Исключить файлы с определёнными именами
+          filetype_is_not = {}, -- Исключить файлы с определёнными типами
+          modifiable = true, -- Только для редактируемых буферов
+        },
+        write_all_buffers = false, -- Сохранять только текущий буфер
+        on_off_commands = true, -- Команды включения/выключения автосохранения
+        clean_command_line_interval = 0, -- Интервал очистки командной строки
+      }
+    end,
+  },
+
   {
     "kdheepak/lazygit.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
